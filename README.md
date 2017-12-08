@@ -1,3 +1,3 @@
 # Codewars-Python
 
-Repository for hacking around with solutions to (Codewarsi Kata)[https://www.codewars.com/kata].
+Repository for hacking around with solutions to [Codewars Kata](https://www.codewars.com/kata).
