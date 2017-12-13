@@ -1,4 +1,8 @@
 # Ignore compiled python files
-**/pyc
+**/*.pyc
 # Ignore vim backup files
 **/*~
+# Ignore Cache directories
+**/.cache/*
+# Ignore PyCache directories too 
+**/__pycache__/*

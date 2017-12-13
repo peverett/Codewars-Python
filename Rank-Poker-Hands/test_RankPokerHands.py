@@ -78,5 +78,22 @@ class TestPokerHands(object):
         "3 of Kind highest Win wins"
         # Even though the 'other' hand has a higher 3 of a kind
         # It loses when just comparing the card score, which is wrong
-        self.runTest("Loss", "2S 2H 2D AC KC", "3S 3S 3C 2S 4S")
+        self.runTest("Loss", "2S 2H 2D AC KC", "3D 3S 3C 2S 4S")
+
+
+    def test_highest_2pair_wins(self):
+        "2 pair - highest pair wins"
+        self.runTest("Win", "AS AH 2S 2H 4C", "KS KH JC JD 3C")
+
+    def test_full_house_high_pair(self):
+        "Full house, highest 3 cards wins, regardless of pair value."
+        self.runTest("Win", "3S 3C 3D 4S 4H", "2S, 2C 2D AD AS")
+
+    def test_low_straight_beats_3oak (self):
+        "An ace can be high OR low in a straight."
+        self.runTest("Loss", "AS AD AC 6S TS", "5S 4S 3D 2H AH")
+
+    def test_flush_highest_card_wins(self):
+        "Both flush, then highest card wins"
+        self.runTest("Win", "AS 4S 3S 7S 2S", "KD QD TD 8D 4D")
 
