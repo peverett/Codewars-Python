@@ -55,7 +55,7 @@ class TestPokerHands(object):
         self.runTest("Win",  "2S 2H 4H 5S 4C", "AH AC 5H 6H 7S")
 
     def test_highest_pair(self):
-        "Highest pair wins"
+        "Highest kicker in pair wins"
         self.runTest("Loss", "6S AD 7H 4S AS", "AH AC 5H 6H 7S")
 
     def test_pair_over_nothing(self):

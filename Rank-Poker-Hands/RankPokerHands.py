@@ -28,6 +28,7 @@ There is no ranking for the suits.
 
 https://www.briggsoft.com/docs/pmavens/PMHoldem.htm
 """
+from __future__ import print_function
 
 class PokerHand(object):
     """Design
@@ -86,7 +87,7 @@ class PokerHand(object):
 
     def is_straight(self):
         # If not all individual cards, can't be a straight.
-        if self.counts.values().count(1) != 5:
+        if list(self.counts.values()).count(1) != 5:
             return False
 
         # Ace High Straight
@@ -137,7 +138,7 @@ class PokerHand(object):
     def is_pair(self):
         if (list(self.counts.values()).count(2) == 1):
             self.hand_cards.append(self.pop_count(2))
-            self.kickers.append(self.counts.keys())
+            self.kickers = sorted(list(self.counts.keys()))
             return True
         return False
 
@@ -165,9 +166,9 @@ class PokerHand(object):
     def compare_kickers(self, other):
         my_hand = sorted(self.kickers, reverse=True)
         their_hand = sorted(other.kickers, reverse=True)
-        print "My Kickers: {}, Their Kickers: {}".format(my_hand, their_hand)
+        print("My Kickers: {}, Their Kickers: {}".format(my_hand, their_hand))
         for mine, theirs in zip(my_hand, their_hand):
-            print "Mine: {}, Theirs: {}".format(mine, theirs)
+            print("Mine: {}, Theirs: {}".format(mine, theirs))
             if mine > theirs:
                 return self.WIN
             elif mine < theirs:
@@ -177,9 +178,9 @@ class PokerHand(object):
     def compare_hands(self, other):
         my_hand = self.hand_cards
         their_hand = other.hand_cards
-        print "My Hand: {}, Their Hand: {}".format(my_hand, their_hand)
+        print("My Hand: {}, Their Hand: {}".format(my_hand, their_hand))
         for mine, theirs in zip(my_hand, their_hand):
-            print "Mine: {}, Theirs: {}".format(mine, theirs)
+            print("Mine: {}, Theirs: {}".format(mine, theirs))
             if mine > theirs:
                 return self.WIN
             elif mine < theirs:
@@ -190,7 +191,7 @@ class PokerHand(object):
     def compare_with(self, other):
         my_hand = self.score_hand()
         their_hand = other.score_hand()
-        print "My Hand: {}, Their Hand: {}".format(my_hand, their_hand)
+        print("My Hand: {}, Their Hand: {}".format(my_hand, their_hand))
         if my_hand > their_hand:
             return self.WIN
         elif my_hand < their_hand:
