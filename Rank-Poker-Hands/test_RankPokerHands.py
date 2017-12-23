@@ -10,9 +10,13 @@ class TestPokerHands(object):
         opponent = PokerHand(other)
         assert player.compare_with(opponent) == expected
 
-    def test_highest_flush(self):
+    def test_highest_straight_flush(self):
         "Highest straight flush wins"
         self.runTest("Loss", "2H 3H 4H 5H 6H", "KS AS TS QS JS")
+
+    def test_straight_flush_tie(self):
+        "Equal straight flush is a tie"
+        self.runTest("Tie", "AH 2H 3H 4H 5H", "AC 4C 3C 2C 5C")
     
     def test_straight_flush(self):
         "Straight flush wins of 4 of a kind"
@@ -21,6 +25,10 @@ class TestPokerHands(object):
     def test_highest_4_of_a_kind(self):
         "Highest 4 of a kind wins"
         self.runTest("Win",  "AS AH 2H AD AC", "JS JD JC JH 3D")
+
+    def test_4ok_highest_kicker(self):
+        "if same 4 of kind, kicker decides winner."
+        self.runTest("Loss", "AC AS AD AH 3D", "AC AS AD AH 4D")
 
     def test_4oak_over_fh(self):
         "4 Of a kind wins of full house"
@@ -33,6 +41,10 @@ class TestPokerHands(object):
     def test_highest_flush(self):
         "Highest flush wins"
         self.runTest("Win",  "AS 3S 4S 8S 2S", "2H 3H 5H 6H 7H")
+
+    def test_flush_highest_last_card(self):
+        "In a flush, compare each card until highest - the last"
+        self.runTest("Loss", "9S 7S 5S 4S 2S", "9C 7C 5C 4C 3C")
 
     def test_flush_over_straight(self):    
         "Flush wins of straight"

@@ -62,15 +62,12 @@ class PokerHand(object):
     TWO_PAIR = 2
     PAIR = 1
 
-    #ace_high_map = dict(value_map).update({ 'A': 14})
-    #ace_low_map = dict(value_map).update({ 'A': 1 })
-
     def __init__(self, hand):
         self.hand = hand.strip().split()
         self.values = sorted([self.card_values[card[0]] for card in self.hand])
         self.counts = {value: self.values.count(value) for value in self.values}
         self.hand_cards = []
-        self.kickers=[]
+        self.kickers = []
 
     def pop_count(self, count):
         for key in self.counts.keys():
@@ -166,9 +163,7 @@ class PokerHand(object):
     def compare_kickers(self, other):
         my_hand = sorted(self.kickers, reverse=True)
         their_hand = sorted(other.kickers, reverse=True)
-        print("My Kickers: {}, Their Kickers: {}".format(my_hand, their_hand))
         for mine, theirs in zip(my_hand, their_hand):
-            print("Mine: {}, Theirs: {}".format(mine, theirs))
             if mine > theirs:
                 return self.WIN
             elif mine < theirs:
@@ -176,11 +171,7 @@ class PokerHand(object):
         return self.TIE
 
     def compare_hands(self, other):
-        my_hand = self.hand_cards
-        their_hand = other.hand_cards
-        print("My Hand: {}, Their Hand: {}".format(my_hand, their_hand))
-        for mine, theirs in zip(my_hand, their_hand):
-            print("Mine: {}, Theirs: {}".format(mine, theirs))
+        for mine, theirs in zip(self.hand_cards, other.hand_cards):
             if mine > theirs:
                 return self.WIN
             elif mine < theirs:
@@ -191,11 +182,9 @@ class PokerHand(object):
     def compare_with(self, other):
         my_hand = self.score_hand()
         their_hand = other.score_hand()
-        print("My Hand: {}, Their Hand: {}".format(my_hand, their_hand))
         if my_hand > their_hand:
             return self.WIN
         elif my_hand < their_hand:
             return self.LOSS
-
         return self.compare_hands(other)
 
