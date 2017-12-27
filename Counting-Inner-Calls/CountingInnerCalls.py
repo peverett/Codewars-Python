@@ -36,18 +36,4 @@ def count_calls(func, *args, **kwargs):
   
   return calls, rv
 
-if __name__ == "__main__":
-
-    def quick_inner():
-        value = 1
-
-        def add_one():
-            nonlocal value
-            value += 1
-            return value
-            
-        return add_one
-
-    f = quick_inner()
-    print("f returns {}".format( f() ))
 
