@@ -86,19 +86,19 @@ def CheckShipBoundaries(ships):
             for other_ship in ships_copy:
                 for bcoord in other_ship:
                     a = abs(acoord[0]-bcoord[0])  # Distance on X-axis
-                    b = abs(acoord[1]-acoord[1])  # Distance on Y-axis
+                    b = abs(acoord[1]-bcoord[1])  # Distance on Y-axis
 
                     # same row or column
                     if (a==0 and b<2) or (a==0 and b<2):
                         print("Ship ({}, {}) too close to ({}, {})".format(
-                            c[0], c[1], o[0], o[1]
+                            acoord[0], acoord[1], bcoord[0], bcoord[1]
                             ))
                         return False
                     else:
                         # distance from a to b calculated by Pythagorus.
-                        if math.sqrt(x**2 + y**2) < 2:
+                        if math.sqrt(a**2 + b**2) < 2:
                             print("Ship ({}, {}) too close to ({}, {})".format(
-                                c[0], c[1], o[0], o[1]
+                                acoord[0], acoord[1], bcoord[0], bcoord[1]
                                 ))
                             return False
     return True
