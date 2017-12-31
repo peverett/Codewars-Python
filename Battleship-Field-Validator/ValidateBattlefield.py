@@ -33,15 +33,6 @@ http://en.wikipedia.org/wiki/Battleship_(game)
 
 import math
 
-
-def outputField(field):
-    """Visual field display for verification."""
-    for y in range(10):
-        for x in range(10):
-            char = 'X' if field[y][x] else '.'
-            print('{} '.format(char), end='')
-        print('')
-
 def InShip(ships, x, y):
     """Is the x, y coordinate given 'in' a found ship?"""
     coord = (x, y)
@@ -71,7 +62,6 @@ def FindShip(x, y, field):
                 break
             else:
                 coords.append((x, dy))
-    print("Found ship: {}".format(coords))
     return coords
 
 def CheckShipBoundaries(ships):
@@ -90,16 +80,10 @@ def CheckShipBoundaries(ships):
 
                     # same row or column
                     if (a==0 and b<2) or (a==0 and b<2):
-                        print("Ship ({}, {}) too close to ({}, {})".format(
-                            acoord[0], acoord[1], bcoord[0], bcoord[1]
-                            ))
                         return False
                     else:
                         # distance from a to b calculated by Pythagorus.
                         if math.sqrt(a**2 + b**2) < 2:
-                            print("Ship ({}, {}) too close to ({}, {})".format(
-                                acoord[0], acoord[1], bcoord[0], bcoord[1]
-                                ))
                             return False
     return True
 
@@ -111,8 +95,6 @@ def CheckShipCounts(ships):
     for ship in ships:
         size = len(ship)
         counts[size] = counts.get(size, 0) + 1
-
-    print("Ship Counts: {}".format(counts))
 
     try: 
         if counts[4]!= 1 or counts[3]!=2 or counts[2]!=3 or counts[1]!= 4:
@@ -128,7 +110,6 @@ def validateBattlefield(field):
     * Check all the different ship types are present and correct.
     * Check none of the ships are too close to each other
     """
-    outputField(field)
     ships = list()
 
     for y in range(10):
