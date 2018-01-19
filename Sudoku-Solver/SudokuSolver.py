@@ -13,24 +13,25 @@ https://en.wikipedia.org/wiki/Sudoku
 """
 from __future__ import print_function
 
-BOXES = (((0, 0), (2, 2)), ((3, 0), (5, 2)), ((6, 0), (8, 2)),
+GRIDS = (((0, 0), (2, 2)), ((3, 0), (5, 2)), ((6, 0), (8, 2)),
          ((0, 3), (2, 5)), ((3, 3), (5, 5)), ((6, 3), (8, 5)),
          ((0, 6), (2, 8)), ((3, 6), (5, 8)), ((6, 6), (8, 8)))
 
-def GetBox(x, y):
-    """Determine the box, the row 'x' and column 'y' are in and return 
-    the box boundaries (top left, bottom right).
+def get_box_grid(x, y):
+    """Determine the box grid, the row 'x' and column 'y' are in and return 
+    the box grid boundaries (top left, bottom right).
     """
-    for box in BOXES:
-        if x >= box[0][0] and y >= box[0][1] and \
-           x <= box[1][0] and y <= box[1][1]:
-            return box
+    for grid in GRIDS:
+        if x >= grid[0][0] and y >= grid[0][1] and \
+           x <= grid[1][0] and y <= grid[1][1]:
+            return grid
     return None
 
-def Check(potential, puzzle, tl, br):
+def rm_pot(potential, puzzle, tl, br):
     """Check through the puzzle array in the range delimited by top left (tl) 
     and bottom right (br) for values in 'potential'. Any value found that is
-    not in 'potential' is removed and the 'potential' array returned.
+    in 'potential' is removed so only missing values remain when it is 
+    returned.
     """
     for y in range(tl[1], br[1]+1):
         for x in range(tl[0], br[0]+1):
@@ -47,27 +48,28 @@ def sudoku(puzzle):
             for x in range(9):
                 # If the current box is empty (is 0)
                 if not puzzle[y][x]:
-                    count_zero += 1
 
                     # Potentially, this box can be any value in the range 1..9
                     potential = range(1, 10)
 
                     # Remove  values in the same row
-                    potential = Check(potential, puzzle, (0, y), (8, y))
+                    potential = rm_pot(potential, puzzle, (0, y), (8, y))
 
                     # Remove values in the same column
                     if len(potential) > 1:
-                        potential = Check(potential, puzzle, (x, 0), (x, 8))
+                        potential = rm_pot(potential, puzzle, (x, 0), (x, 8))
 
                     # Remove values in the same box-grid
                     if len(potential) > 1:
-                        box = GetBox(x, y)
-                        potential = Check(potential, puzzle, box[0], box[1])
+                        box = get_box_grid(x, y)
+                        potential = rm_pot(potential, puzzle, box[0], box[1])
 
                     # If there is only 1 value left in the list of potential
-                    # values, then that must be the only value left!
+                    # values, then that must be the missing value!
                     if len(potential) == 1:
                         puzzle[y][x] = potential[0]
+                    else:
+                        count_zero += 1
     return puzzle
 
 if __name__ == "__main__":
