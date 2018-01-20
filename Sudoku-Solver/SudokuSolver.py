@@ -13,6 +13,7 @@ https://en.wikipedia.org/wiki/Sudoku
 """
 from __future__ import print_function
 
+# Grids defined by their Top Left and Bottom Right Corner on the Sudoku matrix.
 GRIDS = (((0, 0), (2, 2)), ((3, 0), (5, 2)), ((6, 0), (8, 2)),
          ((0, 3), (2, 5)), ((3, 3), (5, 5)), ((6, 3), (8, 5)),
          ((0, 6), (2, 8)), ((3, 6), (5, 8)), ((6, 6), (8, 8)))
@@ -50,7 +51,7 @@ def sudoku(puzzle):
                 if not puzzle[y][x]:
 
                     # Potentially, this box can be any value in the range 1..9
-                    potential = range(1, 10)
+                    potential = list(range(1, 10))
 
                     # Remove  values in the same row
                     potential = rm_pot(potential, puzzle, (0, y), (8, y))
@@ -75,14 +76,14 @@ def sudoku(puzzle):
 if __name__ == "__main__":
 
     puzzle = [[5,3,0,0,7,0,0,0,0],
-            [6,0,0,1,9,5,0,0,0],
-            [0,9,8,0,0,0,0,6,0],
-            [8,0,0,0,6,0,0,0,3],
-            [4,0,0,8,0,3,0,0,1],
-            [7,0,0,0,2,0,0,0,6],
-            [0,6,0,0,0,0,2,8,0],
-            [0,0,0,4,1,9,0,0,5],
-            [0,0,0,0,8,0,0,7,9]]
+              [6,0,0,1,9,5,0,0,0],
+              [0,9,8,0,0,0,0,6,0],
+              [8,0,0,0,6,0,0,0,3],
+              [4,0,0,8,0,3,0,0,1],
+              [7,0,0,0,2,0,0,0,6],
+              [0,6,0,0,0,0,2,8,0],
+              [0,0,0,4,1,9,0,0,5],
+              [0,0,0,0,8,0,0,7,9]]
 
     result = sudoku(puzzle)
 
